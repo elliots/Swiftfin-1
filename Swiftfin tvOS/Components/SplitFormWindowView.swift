@@ -18,7 +18,7 @@ struct SplitFormWindowView: View {
     private var descriptionView: () -> any View
 
     var body: some View {
-        HStack {
+        HStack { 
 
             descriptionView()
                 .eraseToAnyView()

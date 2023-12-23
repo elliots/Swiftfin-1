@@ -8,12 +8,12 @@
 
 import Foundation
 
-extension URL: Identifiable {
-
-    public var id: String {
-        absoluteString
-    }
-}
+//extension URL: Identifiable {
+//
+//    public var id: String {
+//        absoluteString
+//    }
+//}
 
 extension URL {
 

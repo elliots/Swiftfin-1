@@ -29,16 +29,16 @@ extension View {
         }
     }
 
-    // From: https://www.avanderlee.com/swiftui/conditional-view-modifier/
-    @ViewBuilder
-    @inlinable
-    func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
-        if condition {
-            transform(self)
-        } else {
-            self
-        }
-    }
+//    // From: https://www.avanderlee.com/swiftui/conditional-view-modifier/
+//    @ViewBuilder
+//    @inlinable
+//    func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
+//        if condition {
+//            transform(self)
+//        } else {
+//            self
+//        }
+//    }
 
     @ViewBuilder
     @inlinable

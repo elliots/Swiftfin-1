@@ -11,9 +11,11 @@ import Combine
 import Defaults
 import JellyfinAPI
 import SwiftUI
+import KSPlayer
+import UIKit
 
 struct NativeVideoPlayer: View {
-
+ 
     @Environment(\.scenePhase)
     var scenePhase
 
@@ -57,53 +59,38 @@ struct NativeVideoPlayerView: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UINativeVideoPlayerViewController, context: Context) {}
 }
 
-class UINativeVideoPlayerViewController: AVPlayerViewController {
+class UINativeVideoPlayerViewController: UIViewController {
 
     let videoPlayerManager: VideoPlayerManager
 
     private var rateObserver: NSKeyValueObservation!
     private var timeObserverToken: Any!
+    
+    private var playerView: VideoPlayerView!
 
     init(manager: VideoPlayerManager) {
-
+        
         self.videoPlayerManager = manager
 
         super.init(nibName: nil, bundle: nil)
-
-        let newPlayer: AVPlayer = .init(url: manager.currentViewModel.hlsPlaybackURL)
-
-        newPlayer.allowsExternalPlayback = true
-        newPlayer.appliesMediaSelectionCriteriaAutomatically = false
-        newPlayer.currentItem?.externalMetadata = createMetadata()
-
-        rateObserver = newPlayer.observe(\.rate, options: .new) { _, change in
-            guard let newValue = change.newValue else { return }
-
-            if newValue == 0 {
-                self.videoPlayerManager.onStateUpdated(newState: .paused)
-            } else {
-                self.videoPlayerManager.onStateUpdated(newState: .playing)
-            }
-        }
-
-        let time = CMTime(seconds: 0.1, preferredTimescale: 1000)
-
-        timeObserverToken = newPlayer.addPeriodicTimeObserver(forInterval: time, queue: .main) { [weak self] time in
-
-            guard let self else { return }
-
-            if time.seconds >= 0 {
-                let newSeconds = Int(time.seconds)
-                let progress = CGFloat(newSeconds) / CGFloat(self.videoPlayerManager.currentViewModel.item.runTimeSeconds)
-
-                self.videoPlayerManager.currentProgressHandler.progress = progress
-                self.videoPlayerManager.currentProgressHandler.scrubbedProgress = progress
-                self.videoPlayerManager.currentProgressHandler.seconds = newSeconds
-                self.videoPlayerManager.currentProgressHandler.scrubbedSeconds = newSeconds
-            }
-        }
-
-        player = newPlayer
+        
+        view.backgroundColor = .black
+        
+        KSOptions.secondPlayerType = KSMEPlayer.self
+        playerView = VideoPlayerView()
+        view.addSubview(playerView)
+        playerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            playerView.topAnchor.constraint(equalTo: view.readableContentGuide.topAnchor),
+            playerView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            playerView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            playerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+        
+        let options = KSOptions()
+        options.isAutoPlay = true
+        
+        playerView.set(url: manager.currentViewModel.playbackURL, options: options)
     }
 
     @available(*, unavailable)
@@ -119,24 +106,27 @@ class UINativeVideoPlayerViewController: AVPlayerViewController {
         super.viewWillDisappear(animated)
 
         stop()
-        guard let timeObserverToken else { return }
-        player?.removeTimeObserver(timeObserverToken)
+//        guard let timeObserverToken else { return }
+//        player?.removeTimeObserver(timeObserverToken)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        playerView.seek(time: TimeInterval(Int64(videoPlayerManager.currentViewModel.item.startTimeSeconds - Defaults[.VideoPlayer.resumeOffset]))) { _ in
+        }
 
-        player?.seek(
-            to: CMTimeMake(
-                value: Int64(videoPlayerManager.currentViewModel.item.startTimeSeconds - Defaults[.VideoPlayer.resumeOffset]),
-                timescale: 1
-            ),
-            toleranceBefore: .zero,
-            toleranceAfter: .zero,
-            completionHandler: { _ in
-                self.play()
-            }
-        )
+//        player?.seek(
+//            to: CMTimeMake(
+//                value: Int64(videoPlayerManager.currentViewModel.item.startTimeSeconds - Defaults[.VideoPlayer.resumeOffset]),
+//                timescale: 1
+//            ),
+//            toleranceBefore: .zero,
+//            toleranceAfter: .zero,
+//            completionHandler: { _ in
+//                self.play()
+//            }
+//        )
     }
 
     private func createMetadata() -> [AVMetadataItem] {
@@ -162,13 +152,13 @@ class UINativeVideoPlayerViewController: AVPlayerViewController {
     }
 
     private func play() {
-        player?.play()
+//        player?.play()
 
         videoPlayerManager.sendStartReport()
     }
 
     private func stop() {
-        player?.pause()
+//        player?.pause()
 
         videoPlayerManager.sendStopReport()
     }
