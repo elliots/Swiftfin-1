@@ -13,6 +13,7 @@ enum VideoPlayerType: String, CaseIterable, Defaults.Serializable, Displayable {
 
     case native
     case swiftfin
+    case ksplayer
 
     var displayTitle: String {
         switch self {
@@ -20,6 +21,8 @@ enum VideoPlayerType: String, CaseIterable, Defaults.Serializable, Displayable {
             return "Native"
         case .swiftfin:
             return "Swiftfin"
+        case .ksplayer:
+            return "KSPlayer"
         }
     }
 }

@@ -14,8 +14,8 @@ import UIKit
 // TODO: Organize
 
 extension UserDefaults {
-    static let generalSuite = UserDefaults(suiteName: "swiftfinstore-general-defaults")!
-    static let universalSuite = UserDefaults(suiteName: "swiftfinstore-universal-defaults")!
+    static let generalSuite = UserDefaults(suiteName: "swiftfinstoreGeneralDefaults")!
+    static let universalSuite = UserDefaults(suiteName: "swiftfinstoreUniversalDefaults")!
 }
 
 extension Defaults.Keys {

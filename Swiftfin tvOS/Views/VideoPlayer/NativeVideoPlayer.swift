@@ -172,4 +172,12 @@ class UINativeVideoPlayerViewController: AVPlayerViewController {
 
         videoPlayerManager.sendStopReport()
     }
+    /// dismiss native player
+    override func pressesEnded(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        for press in presses {
+            if press.type == .menu {
+                dismiss(animated: true, completion: nil)
+            }
+        }
+    }
 }

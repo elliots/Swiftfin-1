@@ -16,12 +16,12 @@ extension String: Displayable {
     }
 }
 
-extension String: Identifiable {
-
-    public var id: String {
-        self
-    }
-}
+//extension String: Identifiable {
+//
+//    public var id: String {
+//        self
+//    }
+//}
 
 extension String {
 

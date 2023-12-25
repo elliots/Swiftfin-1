@@ -151,6 +151,9 @@
 		62ECA01826FA685A00E8EBB7 /* DeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ECA01726FA685A00E8EBB7 /* DeepLink.swift */; };
 		6334175B287DDFB9000603CE /* QuickConnectSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6334175A287DDFB9000603CE /* QuickConnectSettingsView.swift */; };
 		6334175D287DE0D0000603CE /* QuickConnectSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6334175C287DE0D0000603CE /* QuickConnectSettingsViewModel.swift */; };
+		6500D6E82B39872100B4CC4D /* KSVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6500D6E72B39872100B4CC4D /* KSVideoPlayer.swift */; };
+		6500D6EB2B398B6700B4CC4D /* KSPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = 6500D6EA2B398B6700B4CC4D /* KSPlayer */; };
+		6500D6ED2B398C6100B4CC4D /* KSPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = 6500D6EC2B398C6100B4CC4D /* KSPlayer */; };
 		8BF1BD842AE93DFB00C3B271 /* LatestInLibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1BD832AE93DFB00C3B271 /* LatestInLibraryViewModel.swift */; };
 		8BF1BD852AE93DFB00C3B271 /* LatestInLibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1BD832AE93DFB00C3B271 /* LatestInLibraryViewModel.swift */; };
 		AE8C3159265D6F90008AA076 /* bitrates.json in Resources */ = {isa = PBXBuildFile; fileRef = AE8C3158265D6F90008AA076 /* bitrates.json */; };
@@ -910,6 +913,7 @@
 		6334175A287DDFB9000603CE /* QuickConnectSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickConnectSettingsView.swift; sourceTree = "<group>"; };
 		6334175C287DE0D0000603CE /* QuickConnectSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickConnectSettingsViewModel.swift; sourceTree = "<group>"; };
 		637FCAF3287B5B2600C0A353 /* UDPBroadcast.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = UDPBroadcast.xcframework; path = Carthage/Build/UDPBroadcast.xcframework; sourceTree = "<group>"; };
+		6500D6E72B39872100B4CC4D /* KSVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KSVideoPlayer.swift; sourceTree = "<group>"; };
 		8BF1BD832AE93DFB00C3B271 /* LatestInLibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestInLibraryViewModel.swift; sourceTree = "<group>"; };
 		AE8C3158265D6F90008AA076 /* bitrates.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = bitrates.json; sourceTree = "<group>"; };
 		BD0BA22A2AD6503B00306A8D /* OnlineVideoPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineVideoPlayerManager.swift; sourceTree = "<group>"; };
@@ -1331,6 +1335,7 @@
 				62666E1527E501C800EC0ECD /* AVFoundation.framework in Frameworks */,
 				E13AF3BC28A0C59E009093AB /* BlurHashKit in Frameworks */,
 				62666E1327E501C300EC0ECD /* AudioToolbox.framework in Frameworks */,
+				6500D6EB2B398B6700B4CC4D /* KSPlayer in Frameworks */,
 				E13AF3B628A0C598009093AB /* Nuke in Frameworks */,
 				E12186DE2718F1C50010884C /* Defaults in Frameworks */,
 				E14CB6882A9FF71F001586C6 /* JellyfinAPI in Frameworks */,
@@ -1379,6 +1384,7 @@
 				62666DFE27E5015700EC0ECD /* AVFoundation.framework in Frameworks */,
 				62666DFD27E5014F00EC0ECD /* AudioToolbox.framework in Frameworks */,
 				E19E6E0528A0B958005C10C8 /* Nuke in Frameworks */,
+				6500D6ED2B398C6100B4CC4D /* KSPlayer in Frameworks */,
 				62666E0D27E501AA00EC0ECD /* QuartzCore.framework in Frameworks */,
 				E19E6E0728A0B958005C10C8 /* NukeUI in Frameworks */,
 				62666E3F27E5040300EC0ECD /* SystemConfiguration.framework in Frameworks */,
@@ -1420,6 +1426,7 @@
 				E18A17F3298C68BF00C22F62 /* Overlays */,
 				E1575EA5293E7D40001665B1 /* VideoPlayer.swift */,
 				E1D9F474296E86D400129AF3 /* NativeVideoPlayer.swift */,
+				6500D6E72B39872100B4CC4D /* KSVideoPlayer.swift */,
 			);
 			path = VideoPlayer;
 			sourceTree = "<group>";
@@ -2851,6 +2858,7 @@
 				E1DC981D296DD91900982F06 /* CollectionView */,
 				E18443CA2A037773002DDDC8 /* UDPBroadcast */,
 				E14CB6872A9FF71F001586C6 /* JellyfinAPI */,
+				6500D6EA2B398B6700B4CC4D /* KSPlayer */,
 			);
 			productName = "JellyfinPlayer tvOS";
 			productReference = 535870602669D21600D05A09 /* Swiftfin tvOS.app */;
@@ -2894,6 +2902,7 @@
 				E1DC9820296DDBE600982F06 /* CollectionView */,
 				E1FAD1C52A0375BA007F5521 /* UDPBroadcast */,
 				E14CB6852A9FF62A001586C6 /* JellyfinAPI */,
+				6500D6EC2B398C6100B4CC4D /* KSPlayer */,
 			);
 			productName = JellyfinPlayer;
 			productReference = 5377CBF1263B596A003A4E83 /* Swiftfin iOS.app */;
@@ -2962,6 +2971,7 @@
 				E1DC981F296DDBE600982F06 /* XCRemoteSwiftPackageReference "CollectionView" */,
 				E1FAD1C42A0375BA007F5521 /* XCRemoteSwiftPackageReference "UDPBroadcastConnection" */,
 				E14CB6842A9FF62A001586C6 /* XCRemoteSwiftPackageReference "jellyfin-sdk-swift" */,
+				6500D6E92B398B6700B4CC4D /* XCRemoteSwiftPackageReference "KSPlayer" */,
 			);
 			productRefGroup = 5377CBF2263B596A003A4E83 /* Products */;
 			projectDirPath = "";
@@ -3344,6 +3354,7 @@
 				E154967E296CCB6C00C4EF88 /* BasicNavigationCoordinator.swift in Sources */,
 				E1DABAFE2A27B982008AC34A /* RatingsCard.swift in Sources */,
 				E1C9261B288756BD002A7A66 /* DotHStack.swift in Sources */,
+				6500D6E82B39872100B4CC4D /* KSVideoPlayer.swift in Sources */,
 				E104C873296E0D0A00C1C3F9 /* IndicatorSettingsView.swift in Sources */,
 				E18ACA8D2A14773500BB4F35 /* (null) in Sources */,
 			);
@@ -4140,6 +4151,14 @@
 				kind = branch;
 			};
 		};
+		6500D6E92B398B6700B4CC4D /* XCRemoteSwiftPackageReference "KSPlayer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kingslay/KSPlayer";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
 		E1002B662793CFBA00E47059 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-algorithms.git";
@@ -4287,6 +4306,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 62C29E9A26D0FE4100C1D2E7 /* XCRemoteSwiftPackageReference "stinsen" */;
 			productName = Stinsen;
+		};
+		6500D6EA2B398B6700B4CC4D /* KSPlayer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6500D6E92B398B6700B4CC4D /* XCRemoteSwiftPackageReference "KSPlayer" */;
+			productName = KSPlayer;
+		};
+		6500D6EC2B398C6100B4CC4D /* KSPlayer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6500D6E92B398B6700B4CC4D /* XCRemoteSwiftPackageReference "KSPlayer" */;
+			productName = KSPlayer;
 		};
 		E1002B672793CFBA00E47059 /* Algorithms */ = {
 			isa = XCSwiftPackageProductDependency;

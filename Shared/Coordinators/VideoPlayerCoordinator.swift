@@ -31,9 +31,12 @@ final class VideoPlayerCoordinator: NavigationCoordinatable {
 
         PreferenceUIHostingControllerView {
             Group {
-                if Defaults[.VideoPlayer.videoPlayerType] == .swiftfin {
+                switch Defaults[.VideoPlayer.videoPlayerType] {
+                case .ksplayer:
+                    KSVideoPlayer(manager: self.videoPlayerManager)
+                case .swiftfin:
                     VideoPlayer(manager: self.videoPlayerManager)
-                } else {
+                case .native:
                     NativeVideoPlayer(manager: self.videoPlayerManager)
                 }
             }
@@ -49,9 +52,12 @@ final class VideoPlayerCoordinator: NavigationCoordinatable {
 
         PreferenceUIHostingControllerView {
             Group {
-                if Defaults[.VideoPlayer.videoPlayerType] == .swiftfin {
+                switch Defaults[.VideoPlayer.videoPlayerType] {
+                case .ksplayer:
+                    KSVideoPlayer(manager: self.videoPlayerManager)
+                case .swiftfin:
                     VideoPlayer(manager: self.videoPlayerManager)
-                } else {
+                case .native:
                     NativeVideoPlayer(manager: self.videoPlayerManager)
                 }
             }

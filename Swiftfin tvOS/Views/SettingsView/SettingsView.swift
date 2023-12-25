@@ -62,6 +62,7 @@ struct SettingsView: View {
 
                     ChevronButton(title: L10n.videoPlayer)
                         .onSelect {
+                            
                             router.route(to: \.videoPlayerSettings)
                         }
                 } header: {
