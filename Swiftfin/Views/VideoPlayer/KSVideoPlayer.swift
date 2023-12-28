@@ -91,8 +91,15 @@ class UIKSVideoPlayerViewController: UIViewController {
     private func setupPlayer() {
         
         KSOptions.secondPlayerType = KSMEPlayer.self
+        playerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(playerView)
-        playerView.frame = view.bounds
+
+        NSLayoutConstraint.activate([
+            playerView.topAnchor.constraint(equalTo: view.topAnchor),
+            playerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            playerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            playerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
         
         let options = KSOptions()
         options.isAutoPlay = true
@@ -156,21 +163,6 @@ class UIKSVideoPlayerViewController: UIViewController {
             tapPlayPause()
         } else {
             dismiss(animated: true, completion: nil)
-        }
-    }
-    
-    /// Need if player stop focused, work on simulator
-    override func pressesEnded(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
-        super.pressesEnded(presses, with: event)
-        for press in presses {
-            switch press.type {
-            case .playPause:
-                tapPlayPause()
-            case .menu:
-                tapMenu()
-            default:
-                break
-            }
         }
     }
 }
