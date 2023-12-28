@@ -30,7 +30,7 @@ struct KSVideoPlayer: View {
 
     @ViewBuilder
     private var playerView: some View {
-        KSNativeVideoPlayerView(videoPlayerManager: videoPlayerManager)
+        KSVideoPlayerView(videoPlayerManager: videoPlayerManager)
     }
 
     var body: some View {
@@ -42,12 +42,13 @@ struct KSVideoPlayer: View {
                 Text("Loading")
             }
         }
+        .environmentObject(videoPlayerManager)
         .navigationBarHidden(true)
         .ignoresSafeArea()
     }
 }
 
-struct KSNativeVideoPlayerView: UIViewControllerRepresentable {
+struct KSVideoPlayerView: UIViewControllerRepresentable {
 
     let videoPlayerManager: VideoPlayerManager
 
@@ -58,23 +59,21 @@ struct KSNativeVideoPlayerView: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIKSVideoPlayerViewController, context: Context) {}
 }
 
-
 class UIKSVideoPlayerViewController: UIViewController {
     
-    private lazy var playerView: VideoPlayerView = {
-        
+    private lazy var playerView: KSCustomVideoPlayerView = {
+        $0.actionClose = { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }
         return $0
-    }(VideoPlayerView())
-
+    }(KSCustomVideoPlayerView())
+    
     let videoPlayerManager: VideoPlayerManager
 
-    private var rateObserver: NSKeyValueObservation!
-    private var timeObserverToken: Any!
+    private var isPlaying = false
 
     init(manager: VideoPlayerManager) {
-
         self.videoPlayerManager = manager
-
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -85,21 +84,17 @@ class UIKSVideoPlayerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
+        view.backgroundColor = .black
+        setupPlayer()
     }
     
-    private func setupViews() {
-        view.backgroundColor = .yellow
+    private func setupPlayer() {
+        
         KSOptions.secondPlayerType = KSMEPlayer.self
-//        playerView = VideoPlayerView()
         view.addSubview(playerView)
-        playerView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            playerView.topAnchor.constraint(equalTo: view.readableContentGuide.topAnchor),
-            playerView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            playerView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            playerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        playerView.frame = view.bounds
+        
+        // for ios and ipad
         playerView.backBlock = { [unowned self] in
 //            if UIApplication.shared.statusBarOrientation.isLandscape {
 //                self.playerView.updateUI(isLandscape: false)
@@ -107,81 +102,84 @@ class UIKSVideoPlayerViewController: UIViewController {
 //                self.navigationController?.popViewController(animated: true)
             
         }
-//        manager.currentViewModel.hlsPlaybackURL)
-        playerView.set(url: self.videoPlayerManager.currentViewModel.playbackURL, options: KSOptions())
-        playerView.playTimeDidChange = { (currentTime: TimeInterval, totalTime: TimeInterval) in
-            print("playTimeDidChange currentTime: \(currentTime) totalTime: \(totalTime)")
-        }
         
+        let options = KSOptions()
+        options.isAutoPlay = true
+        
+        // setup URL
+        playerView.set(url: self.videoPlayerManager.currentViewModel.playbackURL, options: options)
+        // saved time progress
+        playerView.playTimeDidChange = {[weak self] (currentTime: TimeInterval, totalTime: TimeInterval) in
+            print(currentTime)
+            
+            if currentTime >= 0 {
+                let newSeconds = Int(currentTime)
+                print(newSeconds)
+                let progress = CGFloat(newSeconds) / CGFloat(self?.videoPlayerManager.currentViewModel.item.runTimeSeconds ?? 1)
+                self?.videoPlayerManager.currentProgressHandler.progress = progress
+                self?.videoPlayerManager.currentProgressHandler.scrubbedProgress = progress
+                self?.videoPlayerManager.currentProgressHandler.seconds = newSeconds
+                self?.videoPlayerManager.currentProgressHandler.scrubbedSeconds = newSeconds
+            }
+            self?.isPlaying = true
+         }
         playerView.play()
-        
-        
+        // set time progress if needed
+        if self.videoPlayerManager.currentViewModel.item.startTimeSeconds > 0 {
+            playerView.seek(time: TimeInterval(self.videoPlayerManager.currentViewModel.item.startTimeSeconds), completion: { _ in })
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
         stop()
-        guard let timeObserverToken else { return }
-//        player?.removeTimeObserver(timeObserverToken)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-//        player?.seek(
-//            to: CMTimeMake(
-//                value: Int64(videoPlayerManager.currentViewModel.item.startTimeSeconds - Defaults[.VideoPlayer.resumeOffset]),
-//                timescale: 1
-//            ),
-//            toleranceBefore: .zero,
-//            toleranceAfter: .zero,
-//            completionHandler: { _ in
-//                self.play()
-//            }
-//        )
     }
 
-//    private func createMetadata() -> [AVMetadataItem] {
-//        let allMetadata: [AVMetadataIdentifier: Any?] = [
-//            .commonIdentifierTitle: videoPlayerManager.currentViewModel.item.displayTitle,
-//            .iTunesMetadataTrackSubTitle: videoPlayerManager.currentViewModel.item.subtitle,
-//        ]
-//
-//        return allMetadata.compactMap { createMetadataItem(for: $0, value: $1) }
-//    }
-//
-//    private func createMetadataItem(
-//        for identifier: AVMetadataIdentifier,
-//        value: Any?
-//    ) -> AVMetadataItem? {
-//        guard let value else { return nil }
-//        let item = AVMutableMetadataItem()
-//        item.identifier = identifier
-//        item.value = value as? NSCopying & NSObjectProtocol
-//        // Specify "und" to indicate an undefined language.
-//        item.extendedLanguageTag = "und"
-//        return item.copy() as? AVMetadataItem
-//    }
-
     private func play() {
-//        player?.play()
-
+        playerView.play()
+        self.videoPlayerManager.onStateUpdated(newState: .playing)
         videoPlayerManager.sendStartReport()
     }
 
     private func stop() {
-//        player?.pause()
-
+        self.videoPlayerManager.onStateUpdated(newState: .paused)
+        playerView.pause()
+        isPlaying = false
         videoPlayerManager.sendStopReport()
     }
-    /// dismiss native player
+    
+    private func tapPlayPause() {
+        if isPlaying {
+            stop()
+        } else {
+            play()
+        }
+    }
+    
+    private func tapMenu() {
+        if isPlaying {
+            tapPlayPause()
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    /// Need if player stop focused, work on simulator
     override func pressesEnded(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        super.pressesEnded(presses, with: event)
         for press in presses {
-            if press.type == .menu {
-                dismiss(animated: true, completion: nil)
+            switch press.type {
+            case .playPause:
+                tapPlayPause()
+            case .menu:
+                tapMenu()
+            default:
+                break
             }
         }
     }
 }
-

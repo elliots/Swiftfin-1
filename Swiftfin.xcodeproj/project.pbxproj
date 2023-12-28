@@ -154,6 +154,9 @@
 		6500D6E82B39872100B4CC4D /* KSVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6500D6E72B39872100B4CC4D /* KSVideoPlayer.swift */; };
 		6500D6EB2B398B6700B4CC4D /* KSPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = 6500D6EA2B398B6700B4CC4D /* KSPlayer */; };
 		6500D6ED2B398C6100B4CC4D /* KSPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = 6500D6EC2B398C6100B4CC4D /* KSPlayer */; };
+		6500D6FB2B3C890600B4CC4D /* KSCustomVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6500D6FA2B3C890600B4CC4D /* KSCustomVideoPlayerView.swift */; };
+		6500D6FC2B3D3BA500B4CC4D /* KSCustomVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6500D6FA2B3C890600B4CC4D /* KSCustomVideoPlayerView.swift */; };
+		6500D6FD2B3D3BA800B4CC4D /* KSVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6500D6E72B39872100B4CC4D /* KSVideoPlayer.swift */; };
 		8BF1BD842AE93DFB00C3B271 /* LatestInLibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1BD832AE93DFB00C3B271 /* LatestInLibraryViewModel.swift */; };
 		8BF1BD852AE93DFB00C3B271 /* LatestInLibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1BD832AE93DFB00C3B271 /* LatestInLibraryViewModel.swift */; };
 		AE8C3159265D6F90008AA076 /* bitrates.json in Resources */ = {isa = PBXBuildFile; fileRef = AE8C3158265D6F90008AA076 /* bitrates.json */; };
@@ -914,6 +917,7 @@
 		6334175C287DE0D0000603CE /* QuickConnectSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickConnectSettingsViewModel.swift; sourceTree = "<group>"; };
 		637FCAF3287B5B2600C0A353 /* UDPBroadcast.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = UDPBroadcast.xcframework; path = Carthage/Build/UDPBroadcast.xcframework; sourceTree = "<group>"; };
 		6500D6E72B39872100B4CC4D /* KSVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KSVideoPlayer.swift; sourceTree = "<group>"; };
+		6500D6FA2B3C890600B4CC4D /* KSCustomVideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KSCustomVideoPlayerView.swift; sourceTree = "<group>"; };
 		8BF1BD832AE93DFB00C3B271 /* LatestInLibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestInLibraryViewModel.swift; sourceTree = "<group>"; };
 		AE8C3158265D6F90008AA076 /* bitrates.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = bitrates.json; sourceTree = "<group>"; };
 		BD0BA22A2AD6503B00306A8D /* OnlineVideoPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineVideoPlayerManager.swift; sourceTree = "<group>"; };
@@ -1980,6 +1984,7 @@
 			isa = PBXGroup;
 			children = (
 				E10E842929A587110064EA49 /* LoadingView.swift */,
+				6500D6FA2B3C890600B4CC4D /* KSCustomVideoPlayerView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -3226,6 +3231,7 @@
 				E1DC9845296DECB600982F06 /* ProgressIndicator.swift in Sources */,
 				E1DA656A28E78B5900592A73 /* SpecialFeaturesViewModel.swift in Sources */,
 				E1C925F928875647002A7A66 /* LatestInLibraryView.swift in Sources */,
+				6500D6FB2B3C890600B4CC4D /* KSCustomVideoPlayerView.swift in Sources */,
 				E11B1B6D2718CD68006DA3E8 /* JellyfinAPIError.swift in Sources */,
 				E12CC1C928D132B800678D5D /* RecentlyAddedView.swift in Sources */,
 				E1937A3C288E54AD00CB80AA /* BaseItemDto+Images.swift in Sources */,
@@ -3426,6 +3432,7 @@
 				E17FB55B28C1266400311DFE /* GenresHStack.swift in Sources */,
 				E18E01FA288747580022598C /* AboutAppView.swift in Sources */,
 				E170D103294CE8BF0017224C /* LoadingView.swift in Sources */,
+				6500D6FD2B3D3BA800B4CC4D /* KSVideoPlayer.swift in Sources */,
 				6220D0AD26D5EABB00B8E046 /* ViewExtensions.swift in Sources */,
 				E18A8E8528D60D0000333B9A /* VideoPlayerCoordinator.swift in Sources */,
 				E19E551F2897326C003CE330 /* BottomEdgeGradientModifier.swift in Sources */,
@@ -3436,6 +3443,7 @@
 				E154966A296CA2EF00C4EF88 /* DownloadManager.swift in Sources */,
 				C4BE07852728446F003F4AD1 /* LiveTVChannelsViewModel.swift in Sources */,
 				E133328829538D8D00EE76AB /* Files.swift in Sources */,
+				6500D6FC2B3D3BA500B4CC4D /* KSCustomVideoPlayerView.swift in Sources */,
 				E1D3043228D175CE00587289 /* StaticLibraryViewModel.swift in Sources */,
 				E1401CA02937DFF500E8B599 /* AppIconSelectorView.swift in Sources */,
 				E1092F4C29106F9F00163F57 /* GestureAction.swift in Sources */,
